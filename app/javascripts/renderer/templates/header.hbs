@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="left">
+    <div class="logo">
+    OtoMoto
+    </div>
+  </div>
+  <div class="left">
+    <label for="">Year</label>
+    <div class="select">
+      <select name="year[from]" class="js-filter">
+        <option value="">From</option>
+        {{#each years as |year|}}
+          <option value="{{year}}">{{year}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="select">
+      <select name="year[to]" class="js-filter">
+        <option value="">To</option>
+        {{#each years as |year|}}
+          <option value="{{year}}">{{year}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+  <div class="left">
+    <label for="">Milage</label>
+    <div class="select">
+      <select name="mileage[from]" class="js-filter">
+        <option value="">From</option>
+        {{#each miles as |mile|}}
+          <option value="{{mile}}">{{mile}} km</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="select">
+      <select name="mileage[to]" class="js-filter">
+        <option value="">To</option>
+        {{#each miles as |mile|}}
+          <option value="{{mile}}">{{mile}} km</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+  <div class="left">
+    <label for="">Price</label>
+    <div class="select">
+      <select name="price[from]" class="js-filter">
+        <option value="">From</option>
+        {{#each prices as |price|}}
+          <option value="{{price}}">{{price}} PLN</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="select">
+      <select name="price[to]" class="js-filter">
+        <option value="">To</option>
+        {{#each prices as |price|}}
+          <option value="{{price}}">{{price}} PLN</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+  <div class="right">
+    <button class="js-load-data positive">&orarr;&nbsp;&nbsp; Find Cars</button>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+html, body
+  padding: 0
+  margin: 0
+  height: 100%
+  overflow: auto
+  background: #e8eaef
+
+body
+  font-family: -apple-system, "Helvetica Neue", Helvetica, sans-serif
+
+#main, #body, .lists, .js-sections-list
+  height: 100%
+  box-sizing: border-box
+
+#header
+  position: relative
+  z-index: 10
+  padding: 10px
+  background: #fff
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.13)
+  .left
+    padding-right: 20px
+
+.lists
+  position: relative
+  padding-right: 40px
+
+.add-section
+  position: absolute
+  right: 0
+  top: 0
+  width: 40px
+  height: 100%
+  padding-top: 240px
+  box-sizing: border-box
+  background: rgba(0,0,0,.05)
+  color: #aaa
+  font-size: 50px
+  text-align: center
+  cursor: pointer
+  transition: background .2s ease
+  &:hover
+    background: rgba(0,0,0,.1)

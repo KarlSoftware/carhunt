@@ -1,0 +1,27 @@
+.select
+  position: relative
+  display: inline-block
+  border: 1px solid #d9dee8
+  font-size: 13px
+  color: #474747
+  background: #fff
+  box-shadow: 0 1px 2px -1px rgba(0,0,0,0.36)
+  select
+    position: relative
+    z-index: 1
+    padding: 6px 24px 6px 12px
+    border: 0
+    outline: none
+    -webkit-appearance: none
+    background: transparent
+    border-radius: none
+  &:after
+    z-index: 0
+    position: absolute
+    display: block
+    content: ''
+    background:url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=) no-repeat center right
+    right: 6px
+    top: 3px
+    width: 16px
+    height: 16px

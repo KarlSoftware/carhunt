@@ -1,0 +1,27 @@
+<div class="section">
+  <div class="subheader row">
+    <div class="select">
+      <select name="brand" id="brand" class="js-brand-select">
+        <option value="">Brand</option>
+        {{#brands}}
+          <option value="{{id}}">{{name}}</option>
+        {{/brands}}
+      </select>
+    </div>
+    <div class="select">
+      <select name="model" id="model" class="js-model-select">
+        <option value="">Model</option>
+        {{#models}}
+          <option value="{{id}}">{{name}}</option>
+        {{/models}}
+      </select>
+    </div>
+    <span class="js-remove remove">&times;</span>
+    <div class="row stats">
+      <span class="stat">min: <span class="price">{{minPrice}} PLN</span></span>
+      <span class="stat">avg: <span class="price">{{averagePrice}} PLN</span></span>
+      <span class="stat">max: <span class="price">{{maxPrice}} PLN</span></span>
+    </div>
+  </div>
+  <div class="offers-region"></div>
+</div>
