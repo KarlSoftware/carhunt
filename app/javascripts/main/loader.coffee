@@ -3,6 +3,7 @@ Q = require('q')
 request = require('request')
 Storage = require('./storage')
 Document = require('./document')
+Filter = require('./filter')
 
 class Loader
   host: 'http://otomoto.pl'
@@ -23,8 +24,9 @@ class Loader
   loadFromCache: ->
     deferred = Q.defer()
     Storage.getOffers().then (results) =>
-      if results?.length > 1  and !_.isEmpty(results[0])
-        deferred.resolve(results)
+      if results?.length >= 1  and !_.isEmpty(results[0])
+        Filter.skip(@sections, results).then (filteredResults) =>
+          deferred.resolve(filteredResults)
       else
         deferred.reject('empty cache')
     deferred.promise
@@ -34,10 +36,11 @@ class Loader
     promises = _.map @sections, (section) =>
       @buildPromise(section)
     Q.all(promises).then (results) =>
-      if results.length > 1
-        @saveCache(results, deferred)
-      else
-        deferred.resolve(results)
+      Filter.skip(@sections, results).then (filteredResults) =>
+        if filteredResults.length > 1
+          @saveCache(filteredResults, deferred)
+        else
+          deferred.resolve(filteredResults)
     , (error) ->
       deferred.reject('connection error')
     deferred.promise

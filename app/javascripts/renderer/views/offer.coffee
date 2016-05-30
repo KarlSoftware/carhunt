@@ -23,5 +23,7 @@ class Offer extends Marionette.LayoutView
     params = {}
     params["#{@options.currentBrand}-#{@options.currentModel}"] = @model.id
     electron.ipcRenderer.send 'skip:change', params
+    collection = @model.collection
+    collection.remove @model
 
 module.exports = Offer

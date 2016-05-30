@@ -12,7 +12,7 @@ class Application extends Bozon
   onReady: (e) ->
     @bindEvents()
     @window = new Window(json)
-    @window.onLoad = @loadData
+    @window.onLoad = => @loadData(true)
 
   bindEvents: ->
     electron.ipcMain.on 'filters:change', (event, data) ->
@@ -35,14 +35,15 @@ class Application extends Bozon
       console.log 'skip:change event received'
       Storage.setSkip(data)
 
-  loadData: ->
+  loadData: (cache = false) ->
     Q.all([
       Storage.getSections(),
       Storage.getFilters()
     ]).then (data) =>
+      method = if cache then 'loadData' else 'loadFromWeb'
       @window.send 'header:data', filters: data[1]
       @loader = new Loader(data[0], data[1])
-      @loader.loadData(data[0], data[1]).then (results) =>
+      @loader[method]().then (results) =>
         @window.send 'sections:data', sections: data[0], offers: results
 
   filterResults: (sections, results, skip) ->

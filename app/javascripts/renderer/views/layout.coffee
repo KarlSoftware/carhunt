@@ -16,10 +16,10 @@ class Layout extends Marionette.LayoutView
     @adjustHeight()
     $(window).on 'resize', => @adjustHeight()
 
-  renderSections: (@sections) ->
+  renderSections: (sections) ->
     @bodyRegion.show new Sections
       brands: @options.brands
-      collection: @sections
+      collection: sections
 
   renderHeader: (filters) ->
     @headerRegion.show new Header filters: filters
