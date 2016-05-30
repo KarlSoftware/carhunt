@@ -10,10 +10,9 @@ json = require('../../package.json')
 class Application extends Bozon
 
   onReady: (e) ->
-    @window = new Window(json)
-    @loader = new Loader()
     @bindEvents()
-    @window.onLoad = @fetchData
+    @window = new Window(json)
+    @window.onLoad = @loadData
 
   bindEvents: ->
     electron.ipcMain.on 'filters:change', (event, data) ->
@@ -32,28 +31,27 @@ class Application extends Bozon
       console.log 'data:load event received'
       @loadData()
 
-  fetchData: =>
-    Q.all([Storage.getSections(), Storage.getFilters(), Storage.getOffers()]).then (data) =>
-      console.log "Fetch stored sections: ", data[0]
-      console.log "Fetch stored filters: ", data[1]
-      @window.send 'header:data', filters: data[1]
-      if data[2].length
-        @window.send 'sections:data', sections: data[0], offers: data[2]
-      else
-        @loader.loadData(data[0], data[1]).then (results) =>
-          Storage.setOffers(results).then =>
-            @window.send 'sections:data', sections: data[0], offers: results
+    electron.ipcMain.on 'skip:change', (event, data) =>
+      console.log 'skip:change event received'
+      Storage.setSkip(data)
 
-  loadData: (sections, filters) ->
-    Q.all([Storage.getSections(), Storage.getFilters()]).then (data) =>
-      console.log "Fetch stored sections: ", data[0]
-      console.log "Fetch stored filters: ", data[1]
+  loadData: ->
+    Q.all([
+      Storage.getSections(),
+      Storage.getFilters()
+    ]).then (data) =>
+      @window.send 'header:data', filters: data[1]
+      @loader = new Loader(data[0], data[1])
       @loader.loadData(data[0], data[1]).then (results) =>
-        console.log "Updating local cache.."
-        Storage.setOffers(results).done =>
-          console.log "Refresh data"
-          @window.send 'sections:data', sections: data[0], offers: results
-        .fail (err) => console.log err
+        @window.send 'sections:data', sections: data[0], offers: results
+
+  filterResults: (sections, results, skip) ->
+    _.map sections, (section, index) ->
+      if skip["#{section.brand}-#{section.model}"]
+        _.filter results, (result) ->
+          _.contains skip["#{section.brand}-#{section.model}"], results.id
+      else
+        results
 
   clearStorage: ->
     Storage.clear().then ->

@@ -33,6 +33,7 @@ class Section extends Marionette.LayoutView
   templateHelpers: ->
     brands: => @brands.toJSON()
     models: => @models.toJSON()
+    collectionEmpty: => @model.offers?.length is 0
     averagePrice: =>
       @model.offers?.averagePrice()
     minPrice: =>
@@ -73,6 +74,8 @@ class Section extends Marionette.LayoutView
 
   renderOffers: ->
     @offersRegion.show new Offers
+      currentBrand: @model.get('brand')
+      currentModel: @model.get('model')
       collection: @model.offers
 
   adjustSection: =>

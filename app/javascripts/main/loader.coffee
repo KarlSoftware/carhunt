@@ -1,17 +1,53 @@
 _ = require('underscore')
 Q = require('q')
 request = require('request')
+Storage = require('./storage')
 Document = require('./document')
 
 class Loader
   host: 'http://otomoto.pl'
   type: 'osobowe'
-  maxPages: 10
+  maxPages: 1
 
-  loadData: (sections, @filters) ->
-    console.log "Fetching data from #{@host}"
-    promises = _.map sections, (section) => @buildPromise(section)
-    Q.all(promises)
+  constructor: (@sections, @filters) ->
+
+  loadData: ->
+    deferred = Q.defer()
+    @loadFromCache().then (data) ->
+      deferred.resolve(data)
+    , (error) =>
+      @loadFromWeb().done (data) ->
+        deferred.resolve(data)
+    deferred.promise
+
+  loadFromCache: ->
+    deferred = Q.defer()
+    Storage.getOffers().then (results) =>
+      if results?.length > 1  and !_.isEmpty(results[0])
+        deferred.resolve(results)
+      else
+        deferred.reject('empty cache')
+    deferred.promise
+
+  loadFromWeb: ->
+    deferred = Q.defer()
+    promises = _.map @sections, (section) =>
+      @buildPromise(section)
+    Q.all(promises).then (results) =>
+      if results.length > 1
+        @saveCache(results, deferred)
+      else
+        deferred.resolve(results)
+    , (error) ->
+      deferred.reject('connection error')
+    deferred.promise
+
+  saveCache: (results, deferred) ->
+    Storage.setOffers(results).then ->
+      deferred.resolve(results)
+    , (error) ->
+      console.log('Failed to save cache', error)
+      deferred.resolve(results)
 
   buildPromise: (section) ->
     deferred = Q.defer()
@@ -33,7 +69,7 @@ class Loader
 
   buildUrl: (attrs) ->
     url = "#{@host}/#{@type}/#{attrs.brand}/#{attrs.model}/?#{@getFilters()}"
-    console.log url
+    console.log "Fetching data from #{url}"
     url
 
   getFilters: ->

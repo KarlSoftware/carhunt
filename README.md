@@ -1,6 +1,6 @@
 # Otomoto
 
-> My Otomoto app built with Electron
+> Side by side compare car offers on http://otomoto.pl
 
 
 ## Dev

@@ -1,7 +1,8 @@
 Q = require('q')
 _ = require('underscore')
-json = require('../../package.json')
+json = require('../../package.json').settings
 storage = require('electron-json-storage')
+
 
 class Storage
   @getSections: ->
@@ -13,6 +14,9 @@ class Storage
   @getOffers: ->
     get "#{json.namespace}:offers"
 
+  @getSkip: ->
+    get "#{json.namespace}:skip"
+
   @setSections: (data) ->
     set "#{json.namespace}:sections", data
 
@@ -21,6 +25,19 @@ class Storage
 
   @setOffers: (data) ->
     set "#{json.namespace}:offers", data
+
+  @setSkip: (data) ->
+    deferred = Q.defer()
+    @getSkip().done (skip) =>
+      key = _.keys(data)[0]
+      value = _.values(data)[0]
+      if skip[key]
+        skip[key].push value
+      else
+        skip[key] = [value]
+      set("#{json.namespace}:skip", skip).done =>
+        deferred.resolve()
+    deferred.promise
 
   @clear: ->
     remove()
@@ -44,7 +61,7 @@ class Storage
     deferred.promise
 
   remove = ->
-    promises = _.map ["#{json.namespace}:sections",  "#{json.namespace}:filters"], (key) ->
+    promises = _.map ["#{json.namespace}:sections", "#{json.namespace}:filters", "#{json.namespace}:offers", "#{json.namespace}:skip"], (key) ->
       buildRemovePromise(key)
     Q.all(promises)
 

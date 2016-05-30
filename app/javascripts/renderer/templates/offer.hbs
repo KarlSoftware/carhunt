@@ -1,9 +1,11 @@
 <div class="left prm">
-  <img src='{{image}}' alt='' />
+  <a href="{{url}}" class="js-link">
+    <img src='{{image}}' alt='' />
+  </a>
 </div>
 <div class="last-col">
-  <h3>{{title}}</h3>
+  <h3><a href="{{url}}" class="js-link"></a>{{title}}</h3>
   <div class="sub"> <span class="price">{{price}}</span>  <span class="muted">{{price_desc}}</span></div>
   <div class="params">{{{params_list}}}</div>
-  <a href="{{url}}" class="js-link">View on otomoto.pl</a>
+  <span class="control js-skip-offer">Hide this</span>
 </div>

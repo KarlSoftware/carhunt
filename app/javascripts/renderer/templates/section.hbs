@@ -17,11 +17,13 @@
       </select>
     </div>
     <span class="js-remove remove">&times;</span>
+    {{#unless collectionEmpty}}
     <div class="row stats">
       <span class="stat">min: <span class="price">{{minPrice}} PLN</span></span>
       <span class="stat">avg: <span class="price">{{averagePrice}} PLN</span></span>
       <span class="stat">max: <span class="price">{{maxPrice}} PLN</span></span>
     </div>
+    {{/unless}}
   </div>
   <div class="offers-region"></div>
 </div>

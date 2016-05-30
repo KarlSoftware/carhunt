@@ -6,4 +6,8 @@ class Offers extends Marionette.CollectionView
   emptyView: EmptySection
   childView: Offer
 
+  childViewOptions: ->
+    currentBrand: @options.currentBrand
+    currentModel: @options.currentModel
+
 module.exports = Offers

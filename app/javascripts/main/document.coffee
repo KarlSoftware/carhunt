@@ -15,6 +15,7 @@ class Document
     items = []
     @$('article.list-offer-item').map (i, item) =>
       items.push
+        id: @$(item).find('.om-title a').prop('data-ad-id')
         title: @$(item).find('.om-title').text().trim()
         price: @$(item).find('.om-price').text()
         price_desc: @$(item).find('.params-small').text().replace(/\s+/g, '')
