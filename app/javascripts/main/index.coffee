@@ -12,7 +12,7 @@ class Application extends Bozon
   onReady: (e) ->
     @bindEvents()
     @window = new Window(json)
-    @window.onLoad = => @loadData(true)
+    @window.onLoad = => @loadData(false)
 
   bindEvents: ->
     electron.ipcMain.on 'filters:change', (event, data) ->

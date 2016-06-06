@@ -11,7 +11,7 @@ var bozon = require('bozon/lib/bozon');
 //
 // =============================================================================
 
-require('bozon/tasks/all');
+require('bozon/lib/tasks');
 
 // If you want to use CoffeeScript or any other compiled to Javascript language
 // in your project, you can add corresponding gulp plugin to package.json
