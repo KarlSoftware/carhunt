@@ -1,4 +1,12 @@
 var path = require('path');
+global.expect = require('chai').expect
+global.assert = require('chai').assert
+global.sinon = require('sinon')
+global.mockRequire = require('mock-require')
+
+afterEach(function () {
+  mockRequire.stopAll();
+});
 
 module.exports = {
   appPath: function() {

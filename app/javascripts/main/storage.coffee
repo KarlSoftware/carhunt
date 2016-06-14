@@ -1,41 +1,39 @@
 Q = require('q')
 _ = require('underscore')
-json = require('../../package.json').settings
 storage = require('electron-json-storage')
-
 
 class Storage
   @getSections: ->
-    get "#{json.namespace}:sections"
+    get "Otomoto:sections"
 
   @getFilters: ->
-    get "#{json.namespace}:filters"
+    get "Otomoto:filters"
 
   @getOffers: ->
-    get "#{json.namespace}:offers"
+    get "Otomoto:offers"
 
   @getSkip: ->
-    get "#{json.namespace}:skip"
+    get "Otomoto:skip"
 
   @setSections: (data) ->
-    set "#{json.namespace}:sections", data
+    set "Otomoto:sections", data
 
   @setFilters: (data) ->
-    set "#{json.namespace}:filters", data
+    set "Otomoto:filters", data
 
   @setOffers: (data) ->
-    set "#{json.namespace}:offers", data
+    set "Otomoto:offers", data
 
   @setSkip: (data) ->
     deferred = Q.defer()
-    @getSkip().done (skip) =>
+    @getSkip().then (skip) =>
       key = _.keys(data)[0]
       value = _.values(data)[0]
       if skip[key]
         skip[key].push value
       else
         skip[key] = [value]
-      set("#{json.namespace}:skip", skip).done =>
+      set("Otomoto:skip", skip).done =>
         deferred.resolve()
     deferred.promise
 
@@ -61,7 +59,7 @@ class Storage
     deferred.promise
 
   remove = ->
-    promises = _.map ["#{json.namespace}:sections", "#{json.namespace}:filters", "#{json.namespace}:offers", "#{json.namespace}:skip"], (key) ->
+    promises = _.map ["Otomoto:sections", "Otomoto:filters", "Otomoto:offers", "Otomoto:skip"], (key) ->
       buildRemovePromise(key)
     Q.all(promises)
 

@@ -8,18 +8,23 @@
     "postinstall": "install-app-deps"
   },
   "dependencies": {
-    "bozon": "0.4.0",
     "backbone.marionette": "^2.4.6",
+    "bozon": "railsware/bozon",
+    "chai": "^3.5.0",
     "cheerio": "^0.20.0",
     "coffee-loader": "^0.7.2",
     "devtron": "^1.1.2",
     "electron-json-storage": "^2.0.0",
+    "electron-prebuilt": "1.2.1",
     "gulp-coffee": "^2.3.2",
     "gulp-sass": "^2.3.1",
     "handlebars": "^4.0.5",
     "handlebars-loader": "^1.3.0",
     "jquery": "^2.2.4",
+    "mock-require": "^1.3.0",
     "q": "^1.4.1",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "require-reload": "^0.2.2",
+    "sinon": "^1.17.4"
   }
 }

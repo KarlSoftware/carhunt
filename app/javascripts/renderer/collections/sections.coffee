@@ -8,7 +8,7 @@ class Sections extends Backbone.Collection
   model: Section
 
   store: ->
-    electron.ipcRenderer.send 'offers:change', @getOffersData()
+    # electron.ipcRenderer.send 'offers:change', @getOffersData()
     electron.ipcRenderer.send 'sections:change', @toJSON()
 
   getOffersData: ->

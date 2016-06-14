@@ -28,12 +28,13 @@ class Application
     brands
 
   setupSectionsOffersData: (data) ->
+    console.log data.sections
     sections = new Sections data.sections
     if sections.length is 0
-      sections.add {}
+      sections.add model: '', brand: '', offers: []
     else
-      sections.each (section, index) =>
-        section.offers = new Offers data.offers[index]
+      sections.each (section) =>
+        section.offers = new Offers section.get('offers')
     sections
 
 

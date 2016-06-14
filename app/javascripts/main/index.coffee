@@ -4,15 +4,14 @@ _ = require('underscore')
 Bozon = require('./application')
 Window = require('./window')
 Storage = require('./storage')
-Loader = require('./loader')
-json = require('../../package.json')
+DataService = require('./data_service')
 
 class Application extends Bozon
 
   onReady: (e) ->
     @bindEvents()
-    @window = new Window(json)
-    @window.onLoad = => @loadData(false)
+    @window = new Window
+      onLoad: @onWindowLoad
 
   bindEvents: ->
     electron.ipcMain.on 'filters:change', (event, data) ->
@@ -35,27 +34,18 @@ class Application extends Bozon
       console.log 'skip:change event received'
       Storage.setSkip(data)
 
-  loadData: (cache = false) ->
-    Q.all([
-      Storage.getSections(),
-      Storage.getFilters()
-    ]).then (data) =>
-      method = if cache then 'loadData' else 'loadFromWeb'
-      @window.send 'header:data', filters: data[1]
-      @loader = new Loader(data[0], data[1])
-      @loader[method]().then (results) =>
-        @window.send 'sections:data', sections: data[0], offers: results
+  onWindowLoad: =>
+    @loadData()
 
-  filterResults: (sections, results, skip) ->
-    _.map sections, (section, index) ->
-      if skip["#{section.brand}-#{section.model}"]
-        _.filter results, (result) ->
-          _.contains skip["#{section.brand}-#{section.model}"], results.id
-      else
-        results
+  loadData: ->
+    Storage.getFilters().then (filters) =>
+      @window.send 'header:data', filters: filters
+      dataService = new DataService(filters)
+      dataService.loadData().then (sections) =>
+        @window.send 'sections:data', sections: sections
 
   clearStorage: ->
     Storage.clear().then ->
       console.log 'removed evetything'
 
-app = new Application()
+module.exports = new Application()

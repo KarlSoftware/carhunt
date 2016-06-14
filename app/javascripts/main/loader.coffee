@@ -10,56 +10,15 @@ class Loader
   type: 'osobowe'
   maxPages: 1
 
-  constructor: (@sections, @filters) ->
+  constructor: (@filters) ->
 
-  loadData: ->
+  loadSection: (section) ->
     deferred = Q.defer()
-    @loadFromCache().then (data) ->
-      deferred.resolve(data)
-    , (error) =>
-      @loadFromWeb().done (data) ->
-        deferred.resolve(data)
+    @loadRecursive @buildUrl(section), [], deferred
     deferred.promise
-
-  loadFromCache: ->
-    deferred = Q.defer()
-    Storage.getOffers().then (results) =>
-      if results?.length >= 1  and !_.isEmpty(results[0])
-        Filter.skip(@sections, results).then (filteredResults) =>
-          deferred.resolve(filteredResults)
-      else
-        deferred.reject('empty cache')
-    deferred.promise
-
-  loadFromWeb: ->
-    deferred = Q.defer()
-    promises = _.map @sections, (section) =>
-      @buildPromise(section)
-    Q.all(promises).then (results) =>
-      Filter.skip(@sections, results).then (filteredResults) =>
-        if filteredResults.length > 1
-          @saveCache(filteredResults, deferred)
-        else
-          deferred.resolve(filteredResults)
-    , (error) ->
-      deferred.reject('connection error')
-    deferred.promise
-
-  saveCache: (results, deferred) ->
-    Storage.setOffers(results).then ->
-      deferred.resolve(results)
-    , (error) ->
-      console.log('Failed to save cache', error)
-      deferred.resolve(results)
-
-  buildPromise: (section) ->
-    deferred = Q.defer()
-    if section.brand? and section.model?
-      @loadRecursive @buildUrl(section), [], deferred
-    else
-      deferred.resolve([])
 
   loadRecursive: (url, accumulator, deferred) ->
+    console.log 'loading data from: ', url
     request url, (error, response, body) =>
       doc = new Document body
       accumulator.push doc
@@ -72,8 +31,6 @@ class Loader
 
   buildUrl: (attrs) ->
     url = "#{@host}/#{@type}/#{attrs.brand}/#{attrs.model}/?#{@getFilters()}"
-    console.log "Fetching data from #{url}"
-    url
 
   getFilters: ->
     query = ''

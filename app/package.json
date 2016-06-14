@@ -2,5 +2,12 @@
   "name": "Otomoto",
   "version": "0.1.0",
   "description": "",
-  "main": "javascripts/main/index.js"
+  "main": "javascripts/main/index.js",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "electron-prebuilt": "1.2.1",
+    "electron-json-storage": "^2.0.0",
+    "q": "^1.4.1",
+    "request": "^2.72.0"
+  }
 }
