@@ -9,7 +9,6 @@
   "main": "javascripts/main/index.js",
   "dependencies": {
     "cheerio": "^0.20.0",
-    "electron-prebuilt": "1.2.2",
     "electron-json-storage": "^2.0.0",
     "q": "^1.4.1",
     "request": "^2.72.0",
