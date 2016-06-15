@@ -1,7 +1,9 @@
-# Otomoto
+# Carhunt
 
-> Side by side compare car offers on http://otomoto.pl
+> Side by side car listing offers from http://otomoto.pl
 
+## Downloads
+[Carhunt v0.1.0](https://github.com/alchapone/carhunt/blob/master/dist/Carhunt-v0.1.0.zip?raw=true)
 
 ## Dev
 
@@ -21,7 +23,7 @@ $ bozon start
 $ bozon package
 ```
 
-Builds the app for OS X, Linux, and Windows, using [electron-packager](https://github.com/electron-userland/electron-packager).
+Builds the app for OS X, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
 
 ## License
