@@ -28,7 +28,6 @@ class Application
     brands
 
   setupSectionsOffersData: (data) ->
-    console.log data.sections
     sections = new Sections data.sections
     if sections.length is 0
       sections.add model: '', brand: '', offers: []

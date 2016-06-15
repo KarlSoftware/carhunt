@@ -8,7 +8,6 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
 
 
 require('electron').ipcRenderer.on('sections:data' , function(event, data) {
-  console.log(data)
   app.renderSections(data);
 });
 

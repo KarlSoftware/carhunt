@@ -1,6 +1,7 @@
 electron = require('electron')
 Q = require('q')
 _ = require('lodash')
+logger = require('./logger')
 Bozon = require('./application')
 Window = require('./window')
 Storage = require('./storage')
@@ -15,24 +16,24 @@ class Application extends Bozon
 
   bindEvents: ->
     electron.ipcMain.on 'filters:change', (event, data) ->
-      console.log 'filters:change event received'
+      logger.log 'filters:change event received'
       Storage.setFilters(data)
 
     electron.ipcMain.on 'sections:change', (event, data) ->
-      console.log 'sections:change event received'
+      logger.log 'sections:change event received'
       Storage.setSections(data)
 
     electron.ipcMain.on 'offers:change', (event, data) ->
-      console.log 'offers:change event received'
+      logger.log 'offers:change event received'
       Storage.setOffers(data)
 
     electron.ipcMain.on 'skip:change', (event, data) =>
-      console.log 'skip:change event received'
+      logger.log 'skip:change event received'
       Storage.setSkip(data)
 
     electron.ipcMain.on 'data:load', (event, data) =>
-      console.log 'data:load event received'
-      @loadData(true)
+      logger.log 'data:load event received'
+      @forceLoadData()
 
   onWindowLoad: =>
     @loadData()
@@ -41,7 +42,14 @@ class Application extends Bozon
     Storage.getFilters().then (filters) =>
       @window.send 'header:data', filters: filters
       dataService = new DataService(filters)
-      dataService.loadData(force).then (sections) =>
+      dataService.loadData(false).then (sections) =>
+        @window.send 'sections:data', sections: sections
+
+  forceLoadData: ->
+    Storage.getFilters().then (filters) =>
+      dataService = new DataService(filters)
+      dataService.loadData(true).then (sections) =>
+        @window.send 'header:data', filters: filters
         @window.send 'sections:data', sections: sections
 
   clearStorage: ->

@@ -10,13 +10,13 @@ class Offers extends Backbone.Collection
     sum = 0
     @each (item) ->
       sum += parseInt(item.get('price').replace(/\s+/g, ''))
-    Math.round sum/@length
+    Math.round(sum/@length).toLocaleString().replace(',', ' ')
 
   minPrice: ->
-    Math.round _.min(@prices())
+    Math.round(_.min(@prices())).toLocaleString().replace(',', ' ')
 
   maxPrice: ->
-    Math.round _.max(@prices())
+    Math.round(_.max(@prices())).toLocaleString().replace(',', ' ')
 
   prices: ->
     @map((item) ->

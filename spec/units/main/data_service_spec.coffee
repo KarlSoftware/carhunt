@@ -21,6 +21,8 @@ describe 'DataService', =>
   mockStorageData = (data) =>
     setSectionSpy = sinon.mock()
     setSectionSpy.returns Promise.resolve()
+    mockRequire './../../../app/javascripts/main/logger',
+      log: => true
     mockRequire './../../../app/javascripts/main/storage',
       getSections: => Promise.resolve(data)
       setSections: setSectionSpy
@@ -36,11 +38,11 @@ describe 'DataService', =>
         mockStorageData([])
 
       it 'should return empty array', =>
-        dataService.loadData().then (results) =>
+        dataService.loadData(false).then (results) =>
           expect(results).to.eql([])
 
       it 'should not call loader', =>
-        dataService.loadData().then =>
+        dataService.loadData(false).then =>
           expect(loadSectionSpy.calledOnce).to.be.false
 
     describe 'sections exist in storage', =>

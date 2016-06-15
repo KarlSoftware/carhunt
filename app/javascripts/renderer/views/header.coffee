@@ -23,6 +23,7 @@ class Header extends Marionette.ItemView
     @filters = @options.filters
 
   onRender: ->
+    console.log 'render header'
     for key, val of @filters.attributes
       @$el.find("[name='#{key}'] option[value='#{val}']").prop('selected', true)
 
@@ -32,6 +33,7 @@ class Header extends Marionette.ItemView
     @filters.store()
 
   onClickLoadData: ->
+    @ui.loadData.addClass('loading')
     electron.ipcRenderer.send 'data:load'
 
 module.exports = Header

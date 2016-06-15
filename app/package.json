@@ -1,11 +1,15 @@
 {
-  "name": "Otomoto",
+  "name": "Carhunt",
   "version": "0.1.0",
-  "description": "",
+  "description": "Easily find and compare car offers",
+  "author": {
+    "name": "Alex Chaplinsky",
+    "email": "alchaplinsky@gmail.com"
+  },
   "main": "javascripts/main/index.js",
   "dependencies": {
     "cheerio": "^0.20.0",
-    "electron-prebuilt": "1.2.1",
+    "electron-prebuilt": "1.2.2",
     "electron-json-storage": "^2.0.0",
     "q": "^1.4.1",
     "request": "^2.72.0",

@@ -23,6 +23,7 @@ class Sections extends Marionette.CompositeView
 
   onRender: ->
     @updateControls()
+    @trigger 'sections:refresh'
 
   onClickAddSection: ->
     @collection.add {} unless @collection.length is @maxSectionCount

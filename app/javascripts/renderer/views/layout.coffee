@@ -22,7 +22,8 @@ class Layout extends Marionette.LayoutView
       collection: sections
 
   renderHeader: (filters) ->
-    @headerRegion.show new Header filters: filters
+    @header = new Header filters: filters
+    @headerRegion.show @header
 
   adjustHeight: ->
     $('#body').height($(window).height() - 47)

@@ -9,3 +9,14 @@ button.positive
   box-shadow: 0 1px 6px 0 rgba(0,0,0,0.1),0 1px 6px 0 rgba(0,0,0,0.1)
   border-radius: 2px
   color: #fff
+  &.loading, &.loading:hover
+      animation: progress-bar-stripes 2s linear infinite
+      background: #cbcbcb
+      background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+      background-size: 25px 25px
+
+@keyframes progress-bar-stripes
+  from
+    background-position: 25px 0
+  to
+    background-position: 0 0
