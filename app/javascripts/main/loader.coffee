@@ -8,7 +8,7 @@ Document = require('./document')
 class Loader
   host: 'http://otomoto.pl'
   type: 'osobowe'
-  maxPages: 1
+  maxPages: 10
 
   constructor: (@filters) ->
 
