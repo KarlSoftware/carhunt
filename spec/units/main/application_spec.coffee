@@ -44,8 +44,8 @@ describe 'Application', =>
       expect(@ipcMainSpy.getCall(0).args[0]).to.eq('filters:change')
       expect(@ipcMainSpy.getCall(1).args[0]).to.eq('sections:change')
       expect(@ipcMainSpy.getCall(2).args[0]).to.eq('offers:change')
-      expect(@ipcMainSpy.getCall(3).args[0]).to.eq('data:load')
-      expect(@ipcMainSpy.getCall(4).args[0]).to.eq('skip:change')
+      expect(@ipcMainSpy.getCall(3).args[0]).to.eq('skip:change')
+      expect(@ipcMainSpy.getCall(4).args[0]).to.eq('data:load')
 
     it 'should send filters to window', =>
       expect(@sendSpy.calledWith('header:data', filters: {})).to.be.true

@@ -75,4 +75,4 @@ describe 'Loader', =>
           deferred.resolve(url)
 
         @loader.loadSection({brand: 'bmw', model: 'seria3'}).then (url) =>
-          expect(url).to.eq('http://otomoto.pl/osobowe/bmw/seria3/?search[filter_float_year%3Afrom]=2013&search[filter_float_year%3Ato]=2016&search[filter_float_mileage%3Afrom]=10000&search[filter_float_mileage%3Ato]=11000&search[filter_float_price%3Afrom]=55000&search[filter_float_price%to]=100000')
+          expect(url).to.eq('http://otomoto.pl/osobowe/bmw/seria3/?search[filter_float_year%3Afrom]=2013&search[filter_float_year%3Ato]=2016&search[filter_float_mileage%3Afrom]=10000&search[filter_float_mileage%3Ato]=11000&search[filter_float_price%3Afrom]=55000&search[filter_float_price%to]=100000&search[filter_enum_damaged]=0&search[filter_enum_no_accident]=1')

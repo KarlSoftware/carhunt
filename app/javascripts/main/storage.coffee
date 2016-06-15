@@ -1,5 +1,5 @@
 Q = require('q')
-_ = require('underscore')
+_ = require('lodash')
 storage = require('electron-json-storage')
 
 class Storage

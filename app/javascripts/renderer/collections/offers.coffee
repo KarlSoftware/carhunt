@@ -4,7 +4,7 @@ Backbone = require('backbone')
 class Offers extends Backbone.Collection
 
   comparator: (item) ->
-    parseInt(item.get('price').replace(/\s+/g, ''))
+    # parseInt(item.get('price').replace(/\s+/g, ''))
 
   averagePrice: ->
     sum = 0

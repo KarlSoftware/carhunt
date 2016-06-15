@@ -24,6 +24,8 @@ describe 'DataService', =>
     mockRequire './../../../app/javascripts/main/storage',
       getSections: => Promise.resolve(data)
       setSections: setSectionSpy
+    mockRequire './../../../app/javascripts/main/filter',
+      skip: (data) => Promise.resolve(data)
     DataService = reload('./../../../app/javascripts/main/data_service')
     dataService = new DataService({})
 

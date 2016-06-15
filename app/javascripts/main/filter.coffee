@@ -1,21 +1,19 @@
 Q = require('q')
-_ = require('underscore')
+_ = require('lodash')
 Storage = require('./storage')
 
 class Filter
-  @skip: (sections, results) ->
+  @skip: (sections) ->
     deferred = Q.defer()
     Storage.getSkip().then (skip) =>
-      filteredResults = @filter(sections, results, skip)
-      deferred.resolve filteredResults
+      @filter(sections, skip)
+      deferred.resolve sections
     deferred.promise
 
-  @filter: (sections, results, skip) ->
-    _.map sections, (section, index) ->
+  @filter: (sections, skip) ->
+    sections.map (section, index) ->
       if skip["#{section.brand}-#{section.model}"]
-        _.reject results[index], (result) ->
-          _.contains skip["#{section.brand}-#{section.model}"], result.id
-      else
-        results
+        section.offers = _.remove section.offers, (result) ->
+          skip["#{section.brand}-#{section.model}"].indexOf(result.id) == -1
 
 module.exports = Filter

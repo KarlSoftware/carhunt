@@ -8,6 +8,7 @@
     "electron-prebuilt": "1.2.1",
     "electron-json-storage": "^2.0.0",
     "q": "^1.4.1",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "underscore.string": "^3.3.4"
   }
 }

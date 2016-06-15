@@ -25,6 +25,7 @@
     "q": "^1.4.1",
     "request": "^2.72.0",
     "require-reload": "^0.2.2",
-    "sinon": "^1.17.4"
+    "sinon": "^1.17.4",
+    "underscore.string": "^3.3.4"
   }
 }

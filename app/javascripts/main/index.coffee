@@ -1,6 +1,6 @@
 electron = require('electron')
 Q = require('q')
-_ = require('underscore')
+_ = require('lodash')
 Bozon = require('./application')
 Window = require('./window')
 Storage = require('./storage')
@@ -26,22 +26,22 @@ class Application extends Bozon
       console.log 'offers:change event received'
       Storage.setOffers(data)
 
-    electron.ipcMain.on 'data:load', (event, data) =>
-      console.log 'data:load event received'
-      @loadData()
-
     electron.ipcMain.on 'skip:change', (event, data) =>
       console.log 'skip:change event received'
       Storage.setSkip(data)
 
+    electron.ipcMain.on 'data:load', (event, data) =>
+      console.log 'data:load event received'
+      @loadData(true)
+
   onWindowLoad: =>
     @loadData()
 
-  loadData: ->
+  loadData: (force = false) ->
     Storage.getFilters().then (filters) =>
       @window.send 'header:data', filters: filters
       dataService = new DataService(filters)
-      dataService.loadData().then (sections) =>
+      dataService.loadData(force).then (sections) =>
         @window.send 'sections:data', sections: sections
 
   clearStorage: ->
