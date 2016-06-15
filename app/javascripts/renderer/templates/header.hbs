@@ -44,22 +44,12 @@
   </div>
   <div class="left">
     <label for="">Price</label>
-    <div class="select">
-      <select name="price[from]" class="js-filter">
-        <option value="">From</option>
-        {{#each prices as |price|}}
-          <option value="{{price}}">{{price}} PLN</option>
-        {{/each}}
-      </select>
-    </div>
-    <div class="select">
-      <select name="price[to]" class="js-filter">
-        <option value="">To</option>
-        {{#each prices as |price|}}
-          <option value="{{price}}">{{price}} PLN</option>
-        {{/each}}
-      </select>
-    </div>
+    <input type="text" name="price[from]" placeholder="From" />
+    <input type="text" name="price[to]" placeholder="To" />
+  </div>
+  <div class="left">
+    <label for="">Dealer</label>
+    <input type="checkbox" name="authorized_dealer" class="js-filter-check" />
   </div>
   <div class="right">
     <button class="js-load-data positive">&orarr;&nbsp;&nbsp; Find Cars</button>
