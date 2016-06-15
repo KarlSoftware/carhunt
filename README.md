@@ -3,7 +3,7 @@
 > Side by side car listing offers from http://otomoto.pl
 
 ## Downloads
-[Carhunt v0.1.0](https://github.com/alchapone/carhunt/blob/master/dist/Carhunt-v0.1.0.zip?raw=true)
+[Carhunt v0.1.0 OSX](https://github.com/alchapone/carhunt/blob/master/dist/Carhunt-v0.1.0.zip?raw=true)
 
 ## Dev
 
