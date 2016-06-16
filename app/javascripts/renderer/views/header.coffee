@@ -25,7 +25,6 @@ class Header extends Marionette.ItemView
 
   onRender: ->
     for key, val of @filters.attributes
-      console.log key, val
       if key is 'authorized_dealer' and val is true
         @$el.find("[name='authorized_dealer']").prop('checked', true)
       @$el.find("[name='#{key}'] option[value='#{val}']").prop('selected', true)
