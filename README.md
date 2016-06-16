@@ -1,6 +1,8 @@
-# Carhunt
-
-> Side by side car listing offers from http://otomoto.pl
+<h1 align="center">CarHunt</h1>
+<p align="center">
+ <img height="135" width="218" src="https://api.monosnap.com/rpc/file/download?id=8Eu5qN8zlTeLoOiXsuwUYnC3WilNZg">
+ <p align="center">Side by side car listing offers from http://otomoto.pl</p>
+</p>
 
 ## Downloads
 [Carhunt v0.1.1 OSX](https://github.com/alchapone/carhunt/blob/master/dist/Carhunt-v0.1.1.zip?raw=true)
